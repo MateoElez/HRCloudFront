@@ -1,0 +1,16 @@
+<div class="p-4" *ngIf="authenticationService.loggedin()">
+    <div class="container">
+        <h1>Hi {{user.firstName}} {{user.lastName}}!</h1>
+        <p>You're logged in!!</p>
+        <p><a routerLink="/shop">Go Shopping</a></p>
+    </div>
+</div>
+
+<div class="p-4" *ngIf="!authenticationService.loggedin()">
+    <div class="container">
+        <h1>Hello ANONIMUS</h1>
+        <p>You're NOT logged in!!</p>
+        <p>Please login to buy something </p>
+        <p><a routerLink="/login"> LOGIN </a></p>
+    </div>
+</div>

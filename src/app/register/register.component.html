@@ -1,0 +1,50 @@
+<h2>Register</h2>
+<form novalidate autocomplete="off" #form="ngForm" (submit)="onSubmit(form, $event)">
+    <input type="hidden" name="id" [value]="service.user.id" />
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" class="form-control"
+        #firstName="ngModel" [(ngModel)]="service.user.firstName"
+        placeholder="First Name" required 
+        [class.invalid]="firstName.invalid && firstName.touched"
+        [ngClass]="{ 'is-invalid': submitted }"/>
+        
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" class="form-control"
+        #lastName="ngModel" [(ngModel)]="service.user.lastName"
+        placeholder="Last Name" required 
+        [class.invalid]="lastName.invalid && lastName.touched"
+        [ngClass]="{ 'is-invalid': submitted }"/>
+        
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" class="form-control"
+        #username="ngModel" [(ngModel)]="service.user.username"
+        placeholder="Username" required id="username"
+        [class.invalid]="username.invalid && username.touched"
+        [ngClass]="{ 'is-invalid': submitted }"/>
+       
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control"
+        #password="ngModel" [(ngModel)]="service.user.password" 
+        placeholder="Password min 8 letters" required minlength="8"
+        [class.invalid]="password.invalid && password.touched"
+        [ngClass]="{ 'is-invalid': submitted }"/>
+       
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"  [disabled]="form.invalid">
+            Register
+        </button>
+        <a routerLink="../login" class="btn btn-link">Cancel</a>
+    </div>
+    <div *ngFor="let error of errors">
+        <span class="errors">{{ error }}</span>
+     </div>
+   
+</form>

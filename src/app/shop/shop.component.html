@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <div class="justify-content-md-center mw-100" style="text-align: center;
+
+    font-weight: bold; font-size: 60px;">SHOP</div>
+    <div class="row" *ngFor="let item of items">
+        <div class="col-3">
+            <img src="{{item.itemImageUrl}}" class="rounded d-block img-fluid">
+        </div>
+        <div class="col-4" style="background-color: rgba(255,0,0,0.1);">
+            {{item.itemName}}
+        </div>
+        <div class="col-2" style="background-color: rgba(100, 28, 39, 0.1);">
+            {{item.itemPrice}} kn
+        </div>
+        <div class="col-3">
+           <input (click)="addItem(item.itemId)" id="addItem" type="button" class="btn btn-primary" value="Add item">
+        </div>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-secondary btn-lg" routerLink="/cart">Go to CART!!</button> 
+    </div>
+</div>
