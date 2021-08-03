@@ -35,13 +35,13 @@ export class CartComponent implements OnInit {
         this.http.get('http://localhost:5000/api/Items/' + this.key).subscribe((data: any) => {
           this.key = localStorage.key(i);
           this.countItem = localStorage.getItem(this.key);
-          let itemId = data.itemId;
+          let id = data.id;
           let itemName = data.itemName;
           let itemPrice = data.itemPrice;
           let itemImageURL = data.itemImageUrl;
 
           this.totalPrice += this.countItem * itemPrice;          
-          this.cartItems.push(new CartItem(itemId, itemName, itemPrice, itemImageURL, parseInt(this.countItem)));
+          this.cartItems.push(new CartItem(id, itemName, itemPrice, itemImageURL, parseInt(this.countItem)));
         });
        }
       }

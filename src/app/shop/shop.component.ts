@@ -19,7 +19,7 @@ export class ShopComponent implements OnInit {
     this.itemService.getItems().subscribe(res => this.items = res);
   }
 
-  addItem(itemId: any) {
+  addItem(id: any) {
     //korsitit cemo localStorage za CART
     //const itemToAdd: Item = new Item;
     /*this.itemService.getItem(itemId).subscribe(res => {
@@ -28,15 +28,15 @@ export class ShopComponent implements OnInit {
     //console.log("ITEM STISNUT JE: " + this.itemToAdd + " i njegov ID je " + itemId);
     //gledas jel postoji vec u kosarici taj proizvod
     //if(this.itemToAdd !== null && this.itemToAdd !== undefined) {
-      let trenutnaKolicina = localStorage.getItem(itemId);
+      let trenutnaKolicina = localStorage.getItem(id);
       if(trenutnaKolicina == null)
-        localStorage.setItem(itemId, JSON.stringify(1));
+        localStorage.setItem(id, JSON.stringify(1));
       else {
         //ode ide ako vec postoji u kosarici, povecaj za 1
         let novaKolicina = parseInt(trenutnaKolicina) + 1;
-        localStorage.setItem(itemId, JSON.stringify(novaKolicina));
+        localStorage.setItem(id, JSON.stringify(novaKolicina));
     }
     //} 
-    console.log("Kupi" + itemId)
+    console.log("Kupi " + id)
   }
 }

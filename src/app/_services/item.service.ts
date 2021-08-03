@@ -35,6 +35,6 @@ export class ItemService {
     return this.http.delete(this.baseURL + id);
   }
   putItem() {
-    return this.http.put(this.baseURL + this.item.itemId, this.item);
+    return this.http.put(this.baseURL + this.item.id, this.item);
   }
 }

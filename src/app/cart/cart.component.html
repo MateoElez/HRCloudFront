@@ -33,10 +33,10 @@
             {{item.itemPrice}} kn
         </div>
         <div class="col-3">
-            <div class="plus-minus-container" data-id="{{ item.itemId }}">
-                <input id="plus" (click)="plusFunction(item.itemId)" class="btn btn-light" type="button" value="+">
+            <div class="plus-minus-container" data-id="{{ item.id }}">
+                <input id="plus" (click)="plusFunction(item.id)" class="btn btn-light" type="button" value="+">
                 <input class="field" readonly id="count" type="text" size=5 value="{{ item.itemCount }}">
-                <input id="minus" (click)="minusFunction(item.itemId)" class="btn btn-light" type="button" value="-">
+                <input id="minus" (click)="minusFunction(item.id)" class="btn btn-light" type="button" value="-">
             </div>
         </div>
       </div>

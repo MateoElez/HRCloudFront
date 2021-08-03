@@ -1,12 +1,12 @@
 export class CartItem {
-    itemId: number;
+    id: number;
     itemName: string;
     itemPrice: number;
     itemImageUrl: string;
     itemCount: number;
 
-    constructor(itemId: number, itemName:string, itemPrice:number, itemImageUrl:string, itemCount:number) {
-        this.itemId = itemId;
+    constructor(id: number, itemName:string, itemPrice:number, itemImageUrl:string, itemCount:number) {
+        this.id = id;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemImageUrl = itemImageUrl;
