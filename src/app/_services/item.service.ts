@@ -19,6 +19,8 @@ export class ItemService {
   }
 
   getItem(id: number) {
+    console.log("Iy fje se vraca: " + this.http.get<Item>(this.baseURL + id)
+    + " koji je tipa : " + typeof(this.http.get<Item>(this.baseURL + id)))
     return this.http.get<Item>(this.baseURL + id);
   }
 

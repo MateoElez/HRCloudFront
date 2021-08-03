@@ -28,7 +28,10 @@ export class AuthenticationService {
   }
   
   logout() {
-    localStorage.removeItem('loggedin');
+    //kad se odlogiras, obrisi kosaricu!!
+    	localStorage.clear();
+    //localStorage.removeItem('loggedin');
+    //localStorage.removeItem(this.currentUser.id as unknown as string);
     this.router.navigate(['/']);
   }
 }

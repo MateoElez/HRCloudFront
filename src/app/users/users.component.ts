@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit {
         err => { console.log(err); }
       )
     }
+    window.location.reload();
   }
 
   populateForm(user: User) {
