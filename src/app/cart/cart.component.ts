@@ -4,6 +4,7 @@ import { Item } from '../_models/item.model';
 import { ItemService } from '../_services/item.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,6 +21,7 @@ export class CartComponent implements OnInit {
   countItem: any;
 
   constructor(public itemSerive: ItemService,
+    public userService : UserService,
     public http: HttpClient,
     public router : Router) { }
 
@@ -73,11 +75,31 @@ export class CartComponent implements OnInit {
     location.reload();
   }
 
-  buy() {
+  buy(event:any) {
+    event.preventDefault();
+
+    let userLoggedIn = localStorage.getItem('loggedin');
+    let itemsToOrder = "";
+    this.userService.getUser(userLoggedIn as unknown as number)
+    .subscribe((data:any) => {
+      console.log(data);
+      let allOrders = data.orders;
+
+      document.querySelectorAll('item-container').forEach((value, key) => {
+        console.log(value);
+
+        let item = (document.querySelector('#item'))?.textContent;
+        let price = (document.querySelector('#price'))?.textContent;
+        let count = (document.querySelector('#count'))?.textContent;
+
+        itemsToOrder += [item, price, count] + "+";
+      });
+      allOrders += itemsToOrder;
+      this.userService.putUser().subscribe();
+    });
     
-    let isLoggedIn = localStorage.getItem('loggedin');
     localStorage.clear();
-    localStorage.setItem('loggedin', isLoggedIn as string);
+    localStorage.setItem('loggedin', userLoggedIn as string);
   }
 
   // checking if cart is empty

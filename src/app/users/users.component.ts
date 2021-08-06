@@ -19,7 +19,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.refreshList();
-    console.log("Poyiva se ngOnInit")
   }
 
   deleteUser(id:number) {
