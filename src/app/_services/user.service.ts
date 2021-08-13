@@ -35,7 +35,7 @@ export class UserService {
   deleteUser(id:number) {
     return this.http.delete(this.baseURL + id);
   }
-  putUser() {
-    return this.http.put(this.baseURL + this.user.id, this.user);
+  putUser(user: User) {
+    return this.http.put(this.baseURL + localStorage.getItem('loggedin'), user);
   }
 }

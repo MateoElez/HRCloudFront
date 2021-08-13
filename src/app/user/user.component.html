@@ -1,7 +1,7 @@
 <body>
     <div class="container row g-2">
         <div class="border bg-light">
-            <div ><span class="">First name: </span>  <span class="user-info-value"> {{ user.firstName}} </span></div>
+            <div ><span class="">First name: </span>  <span class="user-info-value">  {{ user.firstName}} </span></div>
             <div><span class="">Last name: </span> <span class="user-info-value"> {{ user.lastName}} </span></div>
         </div>
 
@@ -16,14 +16,13 @@
                         <div>Quantity:</div>
                     </div>
                     <div class="orders" *ngFor="let order of orderList">
-                        
+                        <!-- <div>{{ order[0] }}</div>
+                        <div>{{ order[1] }}</div>
+                        <div>{{ order[2] }}</div>
+                        <div>{{ order[3]}} </div> -->
+                        {{ order.itemName }}
                     </div>
-                </div>
-                
-                
-            
+                </div>  
         </div>
     </div>
-
-    
 </body>

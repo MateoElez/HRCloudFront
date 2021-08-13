@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
   }
 
   updateRecord(form: NgForm) {
-    this.service.putUser().subscribe(
+    this.service.putUser(new User()).subscribe(
       res => {
         this.resetForm(form);
         this.service.refreshList();

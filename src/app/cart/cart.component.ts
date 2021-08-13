@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
     public router : Router) { }
 
   ngOnInit(): void {
-    
+
     for(let i=0; i < localStorage.length; i++) {
       this.key = localStorage.key(i);
 
@@ -62,11 +62,11 @@ export class CartComponent implements OnInit {
 
   minusFunction(id: number) {
     let lsValue = localStorage.getItem(id as unknown as string);
-    console.log("STARA:"  + lsValue);
+    //console.log("STARA:"  + lsValue);
     let lsValueNum = parseInt(lsValue as string);
     let lsValueNumNew = lsValueNum - 1;
     
-    console.log("Nova: " + lsValueNumNew);
+    //console.log("Nova: " + lsValueNumNew);
     if(lsValueNumNew == 0) {
       localStorage.removeItem(id as unknown as string);
     }  else {
@@ -78,25 +78,59 @@ export class CartComponent implements OnInit {
   buy(event:any) {
     event.preventDefault();
 
+    
     let userLoggedIn = localStorage.getItem('loggedin');
-    let itemsToOrder = "";
+    //let itemsToOrder : any[]= [];
     this.userService.getUser(userLoggedIn as unknown as number)
     .subscribe((data:any) => {
-      console.log(data);
-      let allOrders = data.orders;
+      data.cart = [];
+      for(let i = 0; i < this.cartItems.length; i++) {
+        console.log("U FOR PETLJI: " + this.cartItems[i].itemName);
+        data.cart.push(this.cartItems[i]);
+      }
+      //data.cart = this.cartItems;
+      console.log("podaci u cart component 2: " + data.cart);
+      //console.log("prvi proizvod: " + data.cart[0].itemName)
+      // let allOrders = data.cart;
 
-      document.querySelectorAll('item-container').forEach((value, key) => {
-        console.log(value);
+      // document.querySelectorAll('item-container').forEach((value, key) => {
+      //   console.log(value);
 
-        let item = (document.querySelector('#item'))?.textContent;
-        let price = (document.querySelector('#price'))?.textContent;
-        let count = (document.querySelector('#count'))?.textContent;
+      //   let item = (document.querySelector('#item'))?.textContent;
+      //   let price = (document.querySelector('#price'))?.textContent;
+      //   let count = (document.querySelector('#count'))?.textContent;
 
-        itemsToOrder += [item, price, count] + "+";
+      //   //itemsToOrder += [item, price, count] + "+";
+      // });
+      //allOrders += itemsToOrder;
+
+      //dobro je sve za sad, samo fali to da u backend upisen 
+      // cart, odnosno sve proizvode iz kosarice
+      this.userService.putUser({
+        id: data.id,
+        username: data.username,
+        password: data.password,
+        firstName: data.firstName,
+        lastName : data.lastName,
+        cart: data.cart
+      }).subscribe((data:any) => {
+        console.log("Prodes li do ode u for petlji");
+        for(let i = 0; i < this.cartItems.length; i++) {
+          console.log("U for PETLJI: " + this.cartItems[i].itemName);
+          data.cart.push(this.cartItems[i]);
+        }
       });
-      allOrders += itemsToOrder;
-      this.userService.putUser().subscribe();
+      console.log("Prodes li do ode 1" );
     });
+
+    // this.userService.putUser().subscribe((data:any) => {
+    //   for(let i = 0; i < this.cartItems.length; i++) {
+    //     console.log("U FOR petlji: " + this.cartItems[i].itemName);
+    //     data.cart.push(this.cartItems[i]);
+    //   }
+    // })
+
+    console.log("Prodes li do ode");
     
     localStorage.clear();
     localStorage.setItem('loggedin', userLoggedIn as string);
