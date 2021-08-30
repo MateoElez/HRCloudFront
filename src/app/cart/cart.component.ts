@@ -5,6 +5,7 @@ import { ItemService } from '../_services/item.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../_services/user.service';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +15,7 @@ import { UserService } from '../_services/user.service';
 export class CartComponent implements OnInit {
 
   cartItems: CartItem[] = [];
+  currentUserId : any;
   totalPrice: number = 0;
   errors:any[] = [];
   notEmpty: boolean = false;
@@ -42,11 +44,11 @@ export class CartComponent implements OnInit {
           let itemPrice = data.itemPrice;
           let itemImageURL = data.itemImageUrl;
 
-          this.totalPrice += this.countItem * itemPrice;          
+          this.totalPrice += this.countItem * itemPrice;
           this.cartItems.push(new CartItem(id, itemName, itemPrice, itemImageURL, parseInt(this.countItem)));
         });
-       }
       }
+    }
     
   }
 
@@ -83,13 +85,23 @@ export class CartComponent implements OnInit {
     //let itemsToOrder : any[]= [];
     this.userService.getUser(userLoggedIn as unknown as number)
     .subscribe((data:any) => {
-      data.cart = [];
-      for(let i = 0; i < this.cartItems.length; i++) {
-        console.log("U FOR PETLJI: " + this.cartItems[i].itemName);
-        data.cart.push(this.cartItems[i]);
+      this.currentUserId = data.Id;
+
+      
+      for(let item of this.cartItems) {
+        console.log("ude li ode u for u cartu...");
+        this.http.post('http://localhost:5000/api/Carts/', {
+        id: this.currentUserId,
+        cartItems: [{id: item.id, quantity: item.itemCount }]
+      }).subscribe(data => alert("Order succesfull!"));
+        
       }
+
+      this.http.get('http://localhost:5000/api/Carts/' + data.id).subscribe(
+        data => console.log("DATA: " + data)
+      )
+
       //data.cart = this.cartItems;
-      console.log("podaci u cart component 2: " + data.cart);
       //console.log("prvi proizvod: " + data.cart[0].itemName)
       // let allOrders = data.cart;
 
@@ -106,21 +118,20 @@ export class CartComponent implements OnInit {
 
       //dobro je sve za sad, samo fali to da u backend upisen 
       // cart, odnosno sve proizvode iz kosarice
-      this.userService.putUser({
-        id: data.id,
-        username: data.username,
-        password: data.password,
-        firstName: data.firstName,
-        lastName : data.lastName,
-        cart: data.cart
-      }).subscribe((data:any) => {
-        console.log("Prodes li do ode u for petlji");
-        for(let i = 0; i < this.cartItems.length; i++) {
-          console.log("U for PETLJI: " + this.cartItems[i].itemName);
-          data.cart.push(this.cartItems[i]);
-        }
-      });
-      console.log("Prodes li do ode 1" );
+      // this.userService.putUser({
+      //   id: data.id,
+      //   username: data.username,
+      //   password: data.password,
+      //   firstName: data.firstName,
+      //   lastName : data.lastName,
+      //   cart: data.cart
+      // }).subscribe((data:any) => {
+      //   console.log("Prodes li do ode u for petlji");
+      //   for(let i = 0; i < this.cartItems.length; i++) {
+      //     console.log("U for PETLJI: " + this.cartItems[i].itemName);
+      //     data.cart.push(this.cartItems[i]);
+      //   }
+      // });
     });
 
     // this.userService.putUser().subscribe((data:any) => {
@@ -130,7 +141,6 @@ export class CartComponent implements OnInit {
     //   }
     // })
 
-    console.log("Prodes li do ode");
     
     localStorage.clear();
     localStorage.setItem('loggedin', userLoggedIn as string);

@@ -1,9 +1,9 @@
 export class CartItem {
-    id: number;
-    itemName: string;
-    itemPrice: number;
-    itemImageUrl: string;
-    itemCount: number;
+    id: number = 0;
+    itemName: string = '';
+    itemPrice: number = 0;
+    itemImageUrl: string = '';
+    itemCount: number = 0;
 
     constructor(id: number, itemName:string, itemPrice:number, itemImageUrl:string, itemCount:number) {
         this.id = id;
@@ -11,5 +11,6 @@ export class CartItem {
         this.itemPrice = itemPrice;
         this.itemImageUrl = itemImageUrl;
         this.itemCount = itemCount;
-    }
+    };
+    
 }

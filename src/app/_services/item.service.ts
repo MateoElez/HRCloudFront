@@ -36,5 +36,5 @@ export class ItemService {
   }
   putItem() {
     return this.http.put(this.baseURL + this.item.id, this.item);
-  }
+  } 
 }
